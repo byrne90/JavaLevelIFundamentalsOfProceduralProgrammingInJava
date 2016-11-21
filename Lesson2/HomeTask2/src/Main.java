@@ -26,8 +26,5 @@ public class Main {
 		System.out.println(isMailBoxEmpty);
 		System.out.println(neuronsQuanityInBrain);
 	}
-	enum colorsFrenchFlag {COLOR1, COLOR2, COLOR3}	
-	colorsFrenchFlag niebieski = colorsFrenchFlag.COLOR1;
-	colorsFrenchFlag bialy = colorsFrenchFlag.COLOR2;
-	colorsFrenchFlag czerwony = colorsFrenchFlag.COLOR3;
+	enum colorsFrenchFlag {NIEBIESKI, CZERWONY, BIALY}	
 	}

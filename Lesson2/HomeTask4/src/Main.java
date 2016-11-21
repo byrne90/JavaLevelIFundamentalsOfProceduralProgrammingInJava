@@ -6,10 +6,10 @@ public class Main {
 		Scanner scan= new Scanner(System.in);
 		
 		System.out.println("Podaj wartosc pierwszej przyprostokatnej: ");
-		a = scan.nextShort();
+		a = scan.nextDouble();
 		
 		System.out.println("Podaj wartosc drugiej przyprostokatnej: ");
-		b = scan.nextShort();
+		b = scan.nextDouble();
 		
 		System.out.println("Wartosci podanych przez Ciebie przyprostokatnych to: " +a+", "+b);
 		
