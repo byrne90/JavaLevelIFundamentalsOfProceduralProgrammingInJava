@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="Home/src"/>
+	<classpathentry kind="src" path="HomeTask1/src"/>
+	<classpathentry kind="src" path="HomeTask2/src"/>
+	<classpathentry kind="src" path="HomeTask3/src"/>
+	<classpathentry kind="src" path="HomeTask4/src"/>
+	<classpathentry kind="src" path="Lesson/src"/>
+	<classpathentry kind="src" path="LessonTask1/src"/>
+	<classpathentry kind="src" path="LessonTask2/src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

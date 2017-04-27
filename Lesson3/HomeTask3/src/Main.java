@@ -21,17 +21,21 @@ public class Main {
 		System.out.println("2. cicho.");
 		int volumeLevel = scan.nextInt();
 
-		System.out.println("Wybierz tony w jakich lubisz s³uchaæ muzykê: "); //TONACJA
-		System.out.println("1. niskie. ");
-		System.out.println("2. œrednie. ");
-		System.out.println("3. wysokie. ");
-		System.out.println("4. niskie i œrednie. ");
-		System.out.println("5. niskie i wysokie. ");
-		System.out.println("6. œrednie i wysokie. ");
-		System.out.println("7. nieskie, œrednie i wysokie. ");
-		System.out.println("Wprowad¿ odpowiedni¹ cyfrê: ");
-		int tones = scan.nextInt();
-		
+		System.out.println("Czy lubisz tony niskie? (TRUE/FALSE");
+		boolean lowTones = scan.nextBoolean();
+
+		System.out.println("Czy lubisz tony srednie? (TRUE/FALSE");
+		boolean mediumTones = scan.nextBoolean();
+
+		boolean highTones = false;
+
+		if (lowTones == false && mediumTones == false) {
+			highTones = true;
+		} else {
+			System.out.println("Czy lubisz tony wysokie? (TRUE/FALSE");
+			highTones = scan.nextBoolean();
+		}
+
 		System.out.println("Ustaw balans g³oœników.");
 		System.out.println("0 \t 1 \t 2 \t 3 \t 4 \t 5 \t 6 \t 7 \t 8 \t 9 \t 10");
 		System.out.println("g³oœnik lewy   \t \t \t    C E N T E R \t \t \t g³oœnik prawy");
@@ -65,38 +69,27 @@ public class Main {
 			System.out.println("Ups! Chyba wprowadzi³eœ z³¹ liczbê. Odpal program raz jeszcze.");
 		}
 
-		System.out.println("Muzyka bêdzie odtwarzana w tonach:");
-		switch (tones) {
-		case 1:
-			System.out.println("niskich.");
-			break;
-		case 2:
-			System.out.println("œrednich.");
-			break;
-		case 3:
-			System.out.println("wysokich.");
-			break;
-		case 4:
-			System.out.println("niskich i œrednich.");
-			break;
-		case 5:
-			System.out.println("niskich i wysokich.");
-			break;
-		case 6:
-			System.out.println("œrednich i wysokich.");
-			break;
-		case 7:
-			System.out.println("niskch, œrednich i wysokich.");
-			break;
-		default:
-			System.out.println("Ups! Chyba wprowadzi³eœ z³¹ liczbê. Odpal program raz jeszcze.");
+		String tones = "Wybra³es tony ";
+		if (lowTones == true) {
+			tones = tones + (" niskie");
 		}
+		if (mediumTones == true) {
+			tones = tones + (" srednie");
+		}
+		if (!lowTones && !mediumTones) {
+			tones = tones + (" wysokie");
+		} else {
+			if (highTones == true) {
+				tones = tones + (" wysokie");
+			}
+		}
+		System.out.println(tones);
 
-		System.out.println("G³oœnoœæ prawego g³oœnika to " + balance+".");
-		System.out.println("G³oœnoœæ lewego g³oœnika to " + (10-balance)+".");
-		if (balance<0){
+		System.out.println("G³oœnoœæ prawego g³oœnika to " + balance + ".");
+		System.out.println("G³oœnoœæ lewego g³oœnika to " + (10 - balance) + ".");
+		if (balance < 0) {
 			System.out.println("Ups! Chyba wprowadzi³eœ z³¹ liczbê. Odpal program raz jeszcze.");
-		} else if (balance>10){
+		} else if (balance > 10) {
 			System.out.println("Ups! Chyba wprowadzi³eœ z³¹ liczbê. Odpal program raz jeszcze.");
 		}
 	}

@@ -1,12 +1,17 @@
 import java.util.Scanner;
- 
-public class Main{
-  public static void main(String[] args){
-      String imie; //w nim zapiszemy swoje imie
-      Scanner odczyt = new Scanner(System.in); // obiekt do odbierania danych przez uzytkownika
- 
-      imie = odczyt.nextLine();
- 
-      System.out.println("Witaj "+imie); //wyswietlamy powitanie
-  }
+
+class Main{
+	public static void main (String []args){
+		final String NAME = "Robert";
+		byte age = 22;
+		final double HEIGHT = 1.87;
+		byte numberOnShirt = 9;
+		boolean isRightFooted;
+		
+		System.out.println("Wpisz nazwe zawodnika: ");
+				String nickname;
+				Scanner scan = new Scanner(System.in);
+				nickname= scan.nextLine();
+				System.out.println(nickname);
+	}
 }
