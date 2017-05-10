@@ -8,7 +8,8 @@ public class Main {
 		System.out.println("Zdefiniuj ilosc katow w wielokacie: ");
 		Scanner scan = new Scanner(System.in);
 		int angleCount = scan.nextInt();
-		int random, lenght = 1, sum = 1;
+		int random, lenght = 1, sum = 1; // dlaczego musialem zadeklarowac
+											// wartosci lenght i sum?
 
 		while (angleCount < 3) {
 			System.out.println("Okresliles zbyt mala liczbe katow!!!");
