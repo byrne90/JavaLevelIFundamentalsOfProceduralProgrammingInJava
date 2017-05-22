@@ -12,7 +12,7 @@ public class Main {
 	static int sideLength;
 	static int sum;
 
-	static int angleCount() {
+	static int inputAngleCount() {
 		System.out.println("Wprowadz ilosc katow:");
 		angleCount = scan.nextInt();
 
@@ -25,7 +25,7 @@ public class Main {
 		return angleCount;
 	}
 
-	static void sideLength() {
+	static void inputSideLength() {
 		if (angleCount < 7) {
 			for (int i = 0; i < angleCount; i++) {
 				System.out.println("Wprowadz dlugosc " + (i + 1) + " boku.");
@@ -41,7 +41,7 @@ public class Main {
 		}
 	}
 
-	static int sum() {
+	static int getSum() {
 		for (int i = 0; i < list.size(); i++) {
 			sum = sum + list.get(i);
 		}
@@ -50,9 +50,9 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		angleCount();
-		sideLength();
-		sum();
+		inputAngleCount();
+		inputSideLength();
+		getSum();
 
 		System.out.println("Obwod wielokata o " + angleCount + " katach, wynosi: " + sum);
 

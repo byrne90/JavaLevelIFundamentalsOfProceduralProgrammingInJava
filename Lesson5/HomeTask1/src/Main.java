@@ -1,94 +1,64 @@
 import java.util.Scanner;
 
 public class Main {
-	static String name; // czemu musimy uzyc static????
+
+	// TODO do poprawy nazwy funkcji wlasnych, zastosowac funkcje get.Scan().
+	// validaty zastosowac
+
+	static String name;
 	static String surname;
 	static String schoolName;
-	static byte schoolLevel;
-	static byte classNumber;
+	static int schoolLevel;
+	static int classNumber;
 	static String profile;
 	static String extraClass;
-	static Scanner scan = new Scanner(System.in);
+	static int yesNo;
+	public static Scanner scanner = new Scanner(System.in);
 
-	static String name() {
+	static String inputName() {
 		System.out.println("Wprowadz imie ucznia: ");
-		name = scan.nextLine();
+		name = getScanner().nextLine();
 		return name;
 	}
 
-	static String surname() {
+	static String inputSurname() {
 		System.out.println("Wprowadz nazwisko ucznia: ");
-		surname = scan.nextLine();
+		surname = getScanner().nextLine();
 		return surname;
 	}
 
-	static String schoolName() {
+	static String inputSchoolName() {
 		System.out.println("Wprowadz nazwe szkoly: ");
-		schoolName = scan.nextLine();
+		schoolName = getScanner().nextLine();
 		return schoolName;
 	}
 
-	static byte schoolLevel() {
+	static int selectSchoolLevel() {
 		System.out.println("Wprowadz liczbe wlasciwa dla szkoly: ");
 		System.out.println("1.szkola podstawowa, ");
 		System.out.println("2. szkola gimnazjalna.");
-		schoolLevel = scan.nextByte();
+		schoolLevel = getScanner().nextInt();
 
-		while (schoolLevel < 0 || schoolLevel > 2) {
-			System.out.println("Wprowadziles niewlasciwa liczbe!");
-			System.out.println("Wprowadz  POPRAWNA liczbe wlasciwa dla szkoly: ");
-			System.out.println("1.szkola podstawowa, ");
-			System.out.println("2. szkola gimnazjalna.");
-			schoolLevel = scan.nextByte();
-			if (schoolLevel == 1 || schoolLevel == 2) {
-				break;
-			}
-		}
-
-		return schoolLevel;
+		return validateInt(schoolLevel, 1, 2, "Error zla liczba", "Wprowadz raz jeszcze!");
 	}
 
-	static byte classNumber() {
+	static int selectClassNumber() {
 		if (schoolLevel == 1) {
 			System.out.println("Wprowadz numer klasy od 1-6");
-			classNumber = scan.nextByte();
-			scan.nextLine(); // czemu musialem uzyc nextLine? nie czekalo na
-								// pobranie nastepnej waetosci String (nextLine)
-			while (classNumber < 0 || classNumber > 6) {
-				System.out.println("Wprowadziles niewlasciwy numer klasy!");
-				System.out.println("Wprowadz POPRAWNY numer klasy od 1-6");
-				classNumber = scan.nextByte();
-				scan.nextLine(); // czemu musialem uzyc nextLine? nie czekalo na
-									// pobranie nastepnej waetosci String
-									// (nextLine)
-				if (classNumber > 0 && classNumber < 7) {
-					break;
-				}
-			}
+			classNumber = getScanner().nextByte();
+			validateInt(classNumber, 1, 6, "Wprowadziles zly numer klasy", "Wprowadz numer klasy od 1-6");
 		}
 		if (schoolLevel == 2) {
 			System.out.println("Wprowadz numer klasy od 1-3");
-			classNumber = scan.nextByte();
-			scan.nextLine(); // czemu musialem uzyc nextLine? nie czekalo na
-								// pobranie nastepnej waetosci String (nextLine)
-			while (classNumber < 0 || classNumber > 3) {
-				System.out.println("Wprowadziles niewlasciwy numer klasy!");
-				System.out.println("Wprowadz POPRAWNY numer klasy od 1-3");
-				classNumber = scan.nextByte();
-				scan.nextLine(); // czemu musialem uzyc nextLine? nie czekalo na
-									// pobranie nastepnej waetosci String
-									// (nextLine)
-				if (classNumber > 0 && classNumber < 4) {
-					break;
-				}
-			}
+			classNumber = getScanner().nextByte();
+			validateInt(classNumber, 1, 3, "Wprowadziles zly numer klasy", "Wprowadz numer klasy od 1-3");
 		}
 		return classNumber;
 	}
 
-	static String profile() {
+	static String inputClassProfile() {
 		System.out.println("Wpisz profil klasy: ");
-		profile = scan.nextLine();
+		profile = getScanner().nextLine();
 		return profile;
 	}
 
@@ -104,37 +74,22 @@ public class Main {
 		}
 	}
 
-	static String extraClass() {
-		int yesNo;
+	static String inputExtraClass() {
 		System.out.println("Czy chcesz dopisac dodatkowe kolko?");
 		System.out.println("1. TAK");
 		System.out.println("2. NIE");
 		System.out.println("Wprowadz odpowiednia cyfre.");
-		yesNo = scan.nextInt();
-		scan.nextLine(); // czemu musialem uzyc nextLine? nie czekalo na
-							// pobranie nastepnej waetosci String (nextLine)
-		while (yesNo < 0 || yesNo > 2) {
-			System.out.println("Wprowadziles niewlasciwa cyfre!");
-			System.out.println("Wpisz ja tym razem POPRAWNIE!");
-			System.out.println("Czy chcesz dopisac dodatkowe kolko?");
-			System.out.println("1. TAK");
-			System.out.println("2. NIE");
-			System.out.println("Wprowadz odpowiednia cyfre.");
-			yesNo = scan.nextInt();
-			scan.nextLine(); // czemu musialem uzyc nextLine? nie czekalo na
-			// pobranie nastepnej waetosci String (nextLine)
-			if (yesNo > 0 && yesNo < 2) {
-				break;
-			}
-		}
-		if (yesNo == 1) {
+		yesNo = getScanner().nextInt();
+		validateInt(yesNo, 1, 2, "Wprowadziles ZLA cyfre.", "Wprowadz ponownie!");
+		if (yesNo == 1) { // z metody velidate nie przekazywalo value wiec
+							// nastapila korekta w metodzie!
 			System.out.println("Wprowadz nazwe kolka na ktore uczeszcza uczen: ");
-			extraClass = scan.nextLine();
+			extraClass = getScanner().nextLine();
 		}
 		return extraClass;
 	}
 
-	static void subjectList() {
+	static void getSubjectList() {
 		if (schoolLevel == 1) {
 			System.out.println("Lista przedmiotow ucznia:");
 			System.out.println("WF, j. polski, matematyka");
@@ -145,21 +100,39 @@ public class Main {
 		}
 	}
 
+	static int validateInt(int value, int min, int max, String errorMessage, String communicate) {
+		while (value < min || value > max) {
+			System.out.println(errorMessage);
+			System.out.println(communicate);
+			value = getScanner().nextInt();
+			yesNo = value; // dopisana deklaracja zmiennej bo nie przekazywalo
+							// value z metody
+		}
+		return value;
+	}
+
+	public static Scanner getScanner() {
+		if (scanner != null) {
+			scanner = new Scanner(System.in);
+		}
+		return scanner;
+	}
+
 	public static void main(String[] args) {
-		name();
-		surname();
-		schoolName();
-		schoolLevel();
-		classNumber();
-		profile();
+		inputName();
+		inputSurname();
+		inputSchoolName();
+		selectSchoolLevel();
+		selectClassNumber();
+		inputClassProfile();
 
 		displayData();
-		subjectList();
+		getSubjectList();
 
-		extraClass();
+		inputExtraClass();
 
 		displayData();
-		subjectList();
+		getSubjectList();
 	}
 
 }

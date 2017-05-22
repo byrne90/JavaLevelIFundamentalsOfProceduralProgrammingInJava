@@ -4,27 +4,20 @@ import java.util.Scanner;
 public class Main {
 
 	static Random random = new Random();
-	static Scanner scan = new Scanner(System.in);
-	static byte userNumber;
+	public static Scanner scanner = new Scanner(System.in);
+	static int userNumber;
 	static int randomNumber;
 	static int loopCounter = 0;
 
-	static byte userNumber() {
+	static int getUserNumber() {
 		System.out.println("Wprowadz wybrana przez siebie liczbe 1-30:");
-		userNumber = scan.nextByte();
+		userNumber = getScanner().nextInt();
 
-		while (userNumber < 0 || userNumber > 30) {
-			System.out.println("Wprowadziles liczbe spoza zakresu!");
-			System.out.println("Wprowadz wybrana przez siebie liczbe 1-30:");
-			userNumber = scan.nextByte();
-			if (userNumber > 0 && userNumber < 30) {
-				break;
-			}
-		}
+		validateInt(userNumber, 1, 30, "Wprowadziles niewlasciwa liczbe!");
 		return userNumber;
 	}
 
-	static int randomNumber() {
+	static int getRandomNumber() {
 		do {
 			randomNumber = random.nextInt(30) + 1;
 			loopCounter++;
@@ -36,9 +29,25 @@ public class Main {
 		return randomNumber;
 	}
 
+	static int validateInt(int value, int min, int max, String errorMessage) {
+		while (value < min || value > max) {
+			System.out.println(errorMessage);
+			value = getScanner().nextInt();
+			userNumber = value;
+		}
+		return value;
+	}
+
+	public static Scanner getScanner() {
+		if (scanner != null) {
+			scanner = new Scanner(System.in);
+		}
+		return scanner;
+	}
+
 	public static void main(String[] args) {
-		userNumber();
-		randomNumber();
+		getUserNumber();
+		getRandomNumber();
 	}
 
 }
