@@ -3,19 +3,20 @@ import java.util.Scanner;
 
 public class Main {
 
-	static int listSize;
-	static int returnFromValidate;
-	static ArrayList<String> list;
+	// TODO validate do poprawy wstawic go w () funkcji wlasnej, sprawdzic czy
+	// lista jest pusta zanim wykonamy wywolane funkcje, petal nieskonczona zamiast switch case
 
-	static int createList() {
+	static ArrayList<String> list;
+	static int value;
+
+	static ArrayList<String> createList() {
 		System.out.println("Podaj pojemnosc tworzonej listy: ");
-		listSize = getScanner().nextInt();
-		list = new ArrayList<String>(listSize);
-		return listSize;
+		int listSize = getScanner().nextInt();
+		return new ArrayList<String>(listSize);
 	}
 
 	static void fillUpList() {
-		for (int i = 0; i < listSize; i++) {
+		for (int i = 0; i < list.size(); i++) {
 			System.out.println("Dodaj element nr " + (i + 1) + " listy.");
 			list.add(getScanner().nextLine());
 		}
@@ -53,12 +54,12 @@ public class Main {
 	}
 
 	static void deleteListElement() {
+
 		System.out.println("Ktory element listy chcesz usunac?");
 		int deleteIndicator = getScanner().nextInt();
 		deleteIndicator = deleteIndicator - 1;
-		validateInt(deleteIndicator, 0, listSize = list.size(), "Wpisales zla cyfre!! Wpisz raz jeszcze.");
-		deleteIndicator = returnFromValidate;
-		list.remove(deleteIndicator);
+
+		list.remove(validateInt(deleteIndicator, 0, list.size(), "Wpisales zla cyfre!! Wpisz raz jeszcze."));
 		inputUserAction();
 	}
 
@@ -106,7 +107,7 @@ public class Main {
 		while (value < min || value > max) {
 			System.out.println(errorMessage);
 			value = getScanner().nextInt();
-			returnFromValidate = value - 1;
+			Main.value = 5;
 		}
 		return value;
 	}
@@ -122,7 +123,7 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		createList();
+		list = createList();
 		fillUpList();
 		inputUserAction();
 	}

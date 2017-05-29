@@ -4,47 +4,16 @@ import java.util.Scanner;
 
 public class Main {
 
+	// TODO arrayLength poprawic na patrz zdjecie boolean, funckja nie mzoe
+	// wywolywac samej siebie (sprobuj petli nieskonczonej)
+
 	static ArrayList<String> itemList = new ArrayList<String>();
 	static ArrayList<Integer> priceList = new ArrayList<Integer>();
 	static int arrayLength;
+	static int userAction;
+	static int validatedInt;
 
-	static void inputUserAction() {
-
-		checkArrayLength();
-
-		if (arrayLength > 10) {
-
-			sumUpShoppingList();
-		}
-
-		System.out.println("Co zamierzasz zrobic? (wprowadz odpowiednia liczbe)");
-		System.out.println("1. dodac artykul");
-		System.out.println("2. usunac artykul");
-		System.out.println("3. wyswietlic liste zakupow");
-		System.out.println("4. podsumowanie zakupow.");
-
-		int userAction = getScanner().nextInt();
-
-		switch (userAction) {
-		case 1:
-			addItem();
-			inputUserAction();
-			break;
-		case 2:
-			removeItem();
-			inputUserAction();
-			break;
-		case 3:
-			displayPriceAndItemArray();
-			inputUserAction();
-			break;
-		case 4:
-			sumUpShoppingList();
-			break;
-		}
-	}
-
-	static void addItem() { 
+	static void addItem() {
 		String item;
 		System.out.println("Wprowadz nazwe art.");
 		item = getScanner().nextLine();
@@ -56,19 +25,9 @@ public class Main {
 		System.out.println("Wprowadz liczbe art. ktory chcesz usunac:");
 		int removeNumber = getScanner().nextInt();
 		removeNumber = removeNumber - 1;
-		itemList.remove(removeNumber);
-		priceList.remove(removeNumber);
-	}
-
-	static int checkArrayLength() {
-		arrayLength = itemList.size();
-		return arrayLength;
-	}
-
-	static void displayItemsArray() {
-		for (int i = 0; i < itemList.size(); i++) {
-			System.out.println((i + 1) + " " + itemList.get(i));
-		}
+		validateInt(removeNumber, 0, itemList.size(), "Wpisales zla wartosc elementu!");
+		itemList.remove(validatedInt);
+		priceList.remove(validatedInt);
 	}
 
 	static void displayPriceAndItemArray() {
@@ -78,21 +37,42 @@ public class Main {
 		}
 	}
 
+	static void displayItemList() {
+		for (int i = 0; i < itemList.size(); i++) {
+			System.out.println((i + 1) + " " + itemList.get(i));
+		}
+	}
+
 	static void setRandomPrices() {
 		Random generator = new Random();
 
-		for (int i = 0; i < arrayLength; i++) {
+		for (int i = 0; i < itemList.size(); i++) {
 			priceList.add(generator.nextInt(25) + 1);
 		}
 	}
 
 	static void sumUpShoppingList() {
-		displayPriceAndItemArray();
 		int shoppingSum = 0;
-		for (int i = 0; i < arrayLength; i++) {
+		for (int i = 0; i < itemList.size(); i++) {
 			shoppingSum = priceList.get(i) + shoppingSum;
 		}
-		System.out.println("Suma do zaplaty za zakupy to: " + shoppingSum+ " PLN.");
+		System.out.println("Suma do zaplaty za zakupy to: " + shoppingSum + " PLN.");
+	}
+
+	static boolean isFullList(ArrayList<String> list, int max) {
+		if (list.size() <= max) {
+			return false;
+		}
+		return true;
+	}
+
+	static int validateInt(int value, int min, int max, String errorMessage) {
+		while (value < min || value > max) {
+			System.out.println(errorMessage);
+			value = getScanner().nextInt();
+			validatedInt = value - 1;
+		}
+		return validatedInt;
 	}
 
 	public static Scanner getScanner() {
@@ -106,7 +86,37 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		inputUserAction();
+		for (;;) {
+
+			if (isFullList(itemList, 9) == true) {
+				displayPriceAndItemArray();
+				sumUpShoppingList();
+			}
+
+			System.out.println("Co zamierzasz zrobic? (wprowadz odpowiednia liczbe)");
+			System.out.println("1. dodac artykul");
+			System.out.println("2. usunac artykul");
+			System.out.println("3. wyswietlic liste zakupow");
+			System.out.println("4. podsumowanie zakupow.");
+
+			userAction = getScanner().nextInt();
+
+			switch (userAction) {
+			case 1:
+				addItem();
+				break;
+			case 2:
+				removeItem();
+				break;
+			case 3:
+				displayItemList();
+				break;
+			case 4:
+				displayPriceAndItemArray();
+				sumUpShoppingList();
+				break;
+			}
+		}
 	}
 
 }
