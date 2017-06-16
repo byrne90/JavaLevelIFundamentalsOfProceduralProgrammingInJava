@@ -4,9 +4,6 @@ import java.util.Scanner;
 
 public class Main {
 
-	// TODO arrayLength poprawic na patrz zdjecie boolean, funckja nie mzoe
-	// wywolywac samej siebie (sprobuj petli nieskonczonej)
-
 	static ArrayList<String> itemList = new ArrayList<String>();
 	static ArrayList<Integer> priceList = new ArrayList<Integer>();
 	static int arrayLength;
@@ -22,7 +19,7 @@ public class Main {
 	}
 
 	static void removeItem() {
-		System.out.println("Wprowadz liczbe art. ktory chcesz usunac:");
+		System.out.println("Wprowadz numer art. ktory chcesz usunac:");
 		int removeNumber = getScanner().nextInt();
 		removeNumber = removeNumber - 1;
 		validateInt(removeNumber, 0, itemList.size(), "Wpisales zla wartosc elementu!");
@@ -106,6 +103,9 @@ public class Main {
 				addItem();
 				break;
 			case 2:
+				if (itemList.size() == 0) {
+					break;
+				}
 				removeItem();
 				break;
 			case 3:
