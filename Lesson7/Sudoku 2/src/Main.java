@@ -34,18 +34,17 @@ public class Main {
 			randomNumber = numbers[random.nextInt(numbers.length)];
 
 			if (sudokuBoard[x][y] == '#') {
-				if (checkDuplicatesRow(x, randomNumber)) {
-					if (checkDupliactesColumn(y, randomNumber)) {
-						if (checkDuplicatesSquare(x, y, randomNumber))
-							sudokuBoard[x][y] = randomNumber;
-						numberOfRandomElements--;
-					}
+				if (checkDuplicatesRow(x, randomNumber) && checkDupliactesColumn(y, randomNumber)
+						&& checkDuplicatesSquare(x, y, randomNumber)) {
+
+					sudokuBoard[x][y] = randomNumber;
+					numberOfRandomElements--;
 				}
 			}
 		}
 	}
 
-	static boolean checkDuplicatesRow(int row, int random) {
+	static boolean checkDuplicatesRow(int row, char random) {
 		for (int i = 0; i < sudokuBoard.length; i++) {
 			if (sudokuBoard[row][i] == random) {
 				return false;
@@ -54,7 +53,7 @@ public class Main {
 		return true;
 	}
 
-	static boolean checkDupliactesColumn(int column, int random) {
+	static boolean checkDupliactesColumn(int column, char random) {
 		for (int i = 0; i < sudokuBoard.length; i++) {
 			if (sudokuBoard[i][column] == random) {
 				return false;
@@ -63,52 +62,16 @@ public class Main {
 		return true;
 	}
 
-	static boolean checkDuplicatesSquare(int column, int row, int random) { // jak
-																			// sprawdzic
-																			// dlaczego
-																			// nie
-																			// wykonuje
-																			// tego
-																			// checka!!!!!!
-		int xSquare = 0;
-		int ySqaure = 0;
-		int a = 0;
-		int b = 0;
-
-		if (column < 3) {
-			ySqaure = 2;
-			a = 0;
-		}
-		if (column < 6 && column > 3) {
-			ySqaure = 5;
-			a = 3;
-		}
-		if (column < 9 && column > 6) {
-			ySqaure = 8;
-			a = 6;
-		}
-
-		if (row < 3) {
-			xSquare = 2;
-			b = 0;
-		}
-		if (row < 6 && row > 3) {
-			xSquare = 5;
-			b = 3;
-		}
-		if (row < 9 && row > 6) {
-			xSquare = 8;
-			b = 6;
-		}
-
-		for (int i = b; b < ySqaure; i++) {
-			for (int j = a; a < xSquare; j++) {
-				if (sudokuBoard[i][j] == random) {
+	static boolean checkDuplicatesSquare(int row, int column, char random) {
+		row = (row / 3) * 3;
+		column = (column / 3) * 3;
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				if (sudokuBoard[row + i][column + j] == random) {
 					return false;
 				}
 			}
 		}
-
 		return true;
 	}
 
