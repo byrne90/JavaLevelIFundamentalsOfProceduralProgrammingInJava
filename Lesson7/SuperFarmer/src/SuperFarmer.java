@@ -2,7 +2,6 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class SuperFarmer {
-//TODO zmienic tempy (jest za dzo) patrz kroliki, 
 
 	static int rabbitCount;
 	static int sheepCount;
@@ -47,46 +46,54 @@ public class SuperFarmer {
 
 		System.out.println("Wyrzuciles: " + firstThrow + " " + secondThrow);
 
-		switch (firstThrow) {
+		throwResults(firstThrow, secondThrow);
+
+		if (!firstThrow.equals(secondThrow)) {
+			throwResults(secondThrow, firstThrow);
+		}
+	}
+
+	static void throwResults(String firstThrowValue, String secondThrowValue) {
+		switch (firstThrowValue) {
 		case "Krolik":
-			
-				if (secondThrow.equals("Krolik")) {
-					rabbitCount = rabbitCount + (rabbitCount+2)/2;
-				}
-				rabbitCount = rabbitCount + (rabbitCount+1)/2;
-			
+			if (secondThrowValue.equals("Krolik")) {
+				rabbitCount = rabbitCount + ((rabbitCount + 2) / 2);
+				break;
+			}
+			rabbitCount = rabbitCount + (rabbitCount + 1) / 2;
 			break;
 		case "Owca":
-			int tempSheepCount = 0;
-			if (sheepCount > 0 || secondThrow.equals("Owca")) {
-				if (secondThrow.equals("Owca")) {
-					tempSheepCount = sheepCount + 1;
-					tempSheepCount = tempSheepCount / 2;
-					sheepCount = sheepCount + tempSheepCount;
-				}
-				tempSheepCount = sheepCount + 1;
-				tempSheepCount = tempSheepCount / 2;
-				sheepCount = sheepCount + tempSheepCount;
+			if (secondThrowValue.equals("Owca")) {
+				sheepCount = sheepCount + (sheepCount + 2) / 2;
+				break;
 			}
+			sheepCount = sheepCount + (sheepCount + 1) / 2;
+			break;
 		case "Swinia":
-			int tempPigCount = 0;
-			if (pigCount > 0 || secondThrow.equals("Swinia")) {
-				if (secondThrow.equals("Swinia")) {
-					tempPigCount = tempPigCount + 1;
-					tempPigCount = tempPigCount / 2;
-					pigCount = pigCount + tempPigCount;
-				}
-				tempPigCount = pigCount + 1;
-				tempPigCount = tempPigCount / 2;
-				pigCount = pigCount + tempPigCount;
+			if (secondThrowValue.equals("Swinia")) {
+				pigCount = pigCount + (pigCount + 2) / 2;
+				break;
 			}
+			pigCount = pigCount + (pigCount + 1) / 2;
+			break;
 		case "Krowa":
-			int tempCowCount = 0;
 			if (cowCount > 0) {
-				tempCowCount = cowCount + 1;
-				tempCowCount = tempCowCount / 2;
-				cowCount = cowCount + tempCowCount;
+				cowCount = cowCount + (cowCount + 1) / 2;
 			}
+			break;
+		case "Kon":
+			if (horseCount > 0) {
+				horseCount = horseCount + (horseCount + 1) / 2;
+			}
+			break;
+		case "Lis":
+			if (hasSmallDog == false) {
+				System.out.println("Lis zjada wszytskie kroliki!");
+				rabbitCount = 0;
+				break;
+			}
+			System.out.println("Dobrze jest miec psa! Ochronil Twoje kroliki przed lisem!");
+			hasSmallDog = false;
 			break;
 		case "Wilk":
 			if (hasBigDog == false) {
@@ -99,58 +106,6 @@ public class SuperFarmer {
 			}
 			System.out.println("Dobrze jest miec psa! Ochrania Twoje stado przed wilkiem!");
 			hasBigDog = false;
-		}
-
-		//Rozbic na dwie metody; skrocic jak do krolikow z pierwszej kosci; *jeden switch case
-		if(!firstThrow.equals(secondThrow)){
-			
-		}
-		
-		switch (secondThrow) {
-		case "Krolik":
-			int tempRabbitCount = 0;
-			if (firstThrow.equals("Krolik")) {
-				break;
-			}
-			tempRabbitCount = rabbitCount + 1;
-			tempRabbitCount = tempRabbitCount / 2;
-			rabbitCount = rabbitCount + tempRabbitCount;
-			break;
-		case "Owca":
-			int tempSheepCount = 0;
-			if (firstThrow.equals("Owca")) {
-				break;
-			}
-			tempSheepCount = tempSheepCount + 1;
-			tempSheepCount = tempSheepCount / 2;
-			sheepCount = sheepCount + tempSheepCount;
-			break;
-		case "Swinia":
-			int tempPigCount = 0;
-			if (firstThrow.equals("Swinia")) {
-				break;
-			}
-			tempPigCount = tempPigCount + 1;
-			tempPigCount = tempPigCount / 2;
-			pigCount = pigCount + tempPigCount;
-			break;
-		case "Kon":
-			int tempHorseCount = 0;
-			if (horseCount > 0) {
-				tempHorseCount = horseCount + 1;
-				tempHorseCount = tempHorseCount / 2;
-				horseCount = horseCount + tempHorseCount;
-			}
-			break;
-		case "Lis":
-			if (hasSmallDog == false) {
-				System.out.println("Lis zjada wszytskie kroliki!");
-				rabbitCount = 0;
-				break;
-			}
-			System.out.println("Dobrze jest miec psa! Ochronil Twoje kroliki przed lisem!");
-			hasSmallDog = false;
-			break;
 		}
 	}
 
@@ -251,51 +206,48 @@ public class SuperFarmer {
 	public static void main(String[] args) {
 
 		System.out.println("Zaczynamy gre superfarmer!");
-int a = 3/2;
+		int a = 3 / 2;
 		System.out.println(a);
-		
-		//		
-//		int firstDice = throwFirstDice();
-//		int secondDice = throwSecondDice();
-//		while (!diceOne[firstDice].equals(diceTwo[secondDice])) {
-//			firstDice = throwFirstDice();
-//			secondDice = throwSecondDice();
-//			System.out.println("Wyrzuciles: " + diceOne[firstDice] + " " + diceTwo[secondDice]);
-//		}
-//
-//		switch (diceOne[firstDice]) {
-//		case "Krolik":
-//			rabbitCount = 1;
-//			break;
-//		case "Owca":
-//			sheepCount = 1;
-//			break;
-//		case "Swinia":
-//			pigCount = 1;
-//			break;
-//		}
-//
-//		for (;;) {
-//
-//			System.out.println("MENU:");
-//			System.out.println("1. Obejrzyj swoje stado");
-//			System.out.println("2. Dokonaj wymiany");
-//			System.out.println("3. Rzuc koscmi");
-//			System.out.println("Podaj liczbe odpowiadajaca dzialaniu:");
-//			int inputChoice = scanner.nextInt();
-//
-//			switch (inputChoice) {
-//			case 1:
-//				seeFarm();
-//				break;
-//			case 2:
-//				exchangeAnimals();
-//				break;
-//			case 3:
-//				throwDices();
-//				break;
-//			}
-//		}
-	}
 
+		int firstDice = throwFirstDice();
+		int secondDice = throwSecondDice();
+		while (!diceOne[firstDice].equals(diceTwo[secondDice])) {
+			firstDice = throwFirstDice();
+			secondDice = throwSecondDice();
+			System.out.println("Wyrzuciles: " + diceOne[firstDice] + " " + diceTwo[secondDice]);
+		}
+
+		switch (diceOne[firstDice]) {
+		case "Krolik":
+			rabbitCount = 1;
+			break;
+		case "Owca":
+			sheepCount = 1;
+			break;
+		case "Swinia":
+			pigCount = 1;
+			break;
+		}
+
+		for (;;) {
+			System.out.println("MENU:");
+			System.out.println("1. Obejrzyj swoje stado");
+			System.out.println("2. Dokonaj wymiany");
+			System.out.println("3. Rzuc koscmi");
+			System.out.println("Podaj liczbe odpowiadajaca dzialaniu:");
+			int inputChoice = scanner.nextInt();
+
+			switch (inputChoice) {
+			case 1:
+				seeFarm();
+				break;
+			case 2:
+				exchangeAnimals();
+				break;
+			case 3:
+				throwDices();
+				break;
+			}
+		}
+	}
 }
