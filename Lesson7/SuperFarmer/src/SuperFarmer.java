@@ -8,8 +8,8 @@ public class SuperFarmer {
 	static int pigCount;
 	static int cowCount;
 	static int horseCount;
-	static boolean hasSmallDog = false;
-	static boolean hasBigDog = false;
+	static int smallDogCount;
+	static int bigDogCount;
 
 	static String[] diceOne = { "Wilk", "Krowa", "Swinia", "Owca", "Owca", "Owca", "Krolik", "Krolik", "Krolik",
 			"Krolik", "Krolik", "Krolik" };
@@ -32,8 +32,8 @@ public class SuperFarmer {
 		System.out.println("Swin: " + pigCount);
 		System.out.println("Krow: " + cowCount);
 		System.out.println("Koni: " + horseCount);
-		System.out.println("Maly pies: " + hasSmallDog);
-		System.out.println("Duzy pies: " + hasBigDog);
+		System.out.println("Maly pies: " + smallDogCount);
+		System.out.println("Duzy pies: " + bigDogCount);
 
 	}
 
@@ -87,16 +87,16 @@ public class SuperFarmer {
 			}
 			break;
 		case "Lis":
-			if (hasSmallDog == false) {
+			if (smallDogCount <= 0) {
 				System.out.println("Lis zjada wszytskie kroliki!");
 				rabbitCount = 0;
 				break;
 			}
 			System.out.println("Dobrze jest miec psa! Ochronil Twoje kroliki przed lisem!");
-			hasSmallDog = false;
+			smallDogCount = smallDogCount - 1;
 			break;
 		case "Wilk":
-			if (hasBigDog == false) {
+			if (bigDogCount <= 0) {
 				System.out.println("Wilk zjada zwierzeta!");
 				rabbitCount = 0;
 				sheepCount = 0;
@@ -105,7 +105,29 @@ public class SuperFarmer {
 				break;
 			}
 			System.out.println("Dobrze jest miec psa! Ochrania Twoje stado przed wilkiem!");
-			hasBigDog = false;
+			bigDogCount--;
+			break;
+		}
+	}
+
+	static void exchangeAnimalMechanism(int countInputAnimals, int countOutputAnimals, String nameOfInputAnimals,
+			String nameOfOutputAnimals, int minAnimals) {
+		if (countInputAnimals < minAnimals) {
+			System.out.println("Masz za malo " + nameOfInputAnimals + " na wymiane!");
+		}
+		System.out.println("Ile " + nameOfOutputAnimals + " chcesz dostac?");
+		int exchangeCount = scanner.nextInt();
+
+		if (minAnimals * exchangeCount <= countInputAnimals) {
+			countOutputAnimals = countOutputAnimals + exchangeCount;
+			countInputAnimals = countInputAnimals - (minAnimals * exchangeCount);
+			System.out.println("Wymieniles " + (minAnimals * exchangeCount) + " " + nameOfInputAnimals + " na "
+					+ exchangeCount + " " + nameOfOutputAnimals);
+		} else {
+			System.out.println("Masz za mala ilosc " + nameOfInputAnimals);
+			int maxNumbersOfAnimalsToExchange = countInputAnimals / minAnimals;
+			System.out
+					.println("Maksymalnie mozesz dostac " + maxNumbersOfAnimalsToExchange + " " + nameOfOutputAnimals);
 		}
 	}
 
@@ -119,78 +141,26 @@ public class SuperFarmer {
 		System.out.println("(6.) 1 krowa = 1 duzy pies");
 
 		int exchangeChoice = scanner.nextInt();
-		int exchangeCount;
 
 		switch (exchangeChoice) {
 		case 1:
-			if (rabbitCount < 6) {
-				System.out.println("Masz za malo krolikow na wymiane!");
-			}
-			System.out.println("Ile owiec chcesz dostac?");
-			exchangeCount = scanner.nextInt();
-			if (rabbitCount % exchangeCount == 0) {
-				sheepCount = sheepCount + exchangeCount;
-				rabbitCount = rabbitCount - (exchangeCount * 6);
-			} else {
-				System.out.println("Masz za malo krolikow na wymiane!");
-			}
+			exchangeAnimalMechanism(rabbitCount, sheepCount, "Krolikow", "Owiec", 6);
 			break;
 		case 2:
-			if (sheepCount < 2) {
-				System.out.println("Masz za malo owiec na wymiane!");
-			}
-			System.out.println("Ile swin chcesz dostac?");
-			exchangeCount = scanner.nextInt();
-			if (sheepCount % exchangeCount == 0) {
-				pigCount = pigCount + exchangeCount;
-				sheepCount = sheepCount - (exchangeCount * 2);
-			} else {
-				System.out.println("Masz za malo owiec na wymiane!");
-			}
+			exchangeAnimalMechanism(sheepCount, pigCount, "Owiec", "Swin", 2);
 			break;
 		case 3:
-			if (pigCount < 3) {
-				System.out.println("Masz za malo swin na wymiane!");
-			}
-			System.out.println("Ile krow chcesz dostac?");
-			exchangeCount = scanner.nextInt();
-			if (pigCount % exchangeCount == 0) {
-				cowCount = cowCount + exchangeCount;
-				pigCount = pigCount - (exchangeCount * 6);
-			} else {
-				System.out.println("Masz za malo swin na wymiane!");
-			}
+			exchangeAnimalMechanism(pigCount, cowCount, "Swin", "Krow", 3);
 			break;
 		case 4:
-			if (cowCount < 6) {
-				System.out.println("Masz za malo krow na wymiane!");
-			}
-			System.out.println("Ile koni chcesz dostac?");
-			exchangeCount = scanner.nextInt();
-			if (cowCount % exchangeCount == 0) {
-				horseCount = horseCount + exchangeCount;
-				cowCount = cowCount - (exchangeCount * 6);
-			} else {
-				System.out.println("Masz za malo krow na wymiane!");
-			}
+			exchangeAnimalMechanism(cowCount, horseCount, "Krow", "Koni", 2);
 			break;
 		case 5:
-			if (sheepCount == 0) {
-				System.out.println("Masz za malo owiec aby kupic psa!");
-			} else {
-				sheepCount = sheepCount - 1;
-				hasSmallDog = true;
-				System.out.println("Kupiles malego psa! Lisy Ci juz nie groza!");
-			}
+			exchangeAnimalMechanism(sheepCount, smallDogCount, "Owiec", "Malych Psow", 1);
 			break;
 		case 6:
-			if (cowCount == 0) {
-				System.out.println("Masz za malo krow zeby kupic duzego psa!");
-			} else {
-				cowCount = cowCount - 1;
-				hasBigDog = true;
-				System.out.println("Kupiles duzego psa! Wilki Ci juz nie groza!");
-			}
+			exchangeAnimalMechanism(cowCount, bigDogCount, "Krow", "Duzych Psow", 1);
+			break;
 		}
 	}
 
@@ -206,28 +176,6 @@ public class SuperFarmer {
 	public static void main(String[] args) {
 
 		System.out.println("Zaczynamy gre superfarmer!");
-		int a = 3 / 2;
-		System.out.println(a);
-
-		int firstDice = throwFirstDice();
-		int secondDice = throwSecondDice();
-		while (!diceOne[firstDice].equals(diceTwo[secondDice])) {
-			firstDice = throwFirstDice();
-			secondDice = throwSecondDice();
-			System.out.println("Wyrzuciles: " + diceOne[firstDice] + " " + diceTwo[secondDice]);
-		}
-
-		switch (diceOne[firstDice]) {
-		case "Krolik":
-			rabbitCount = 1;
-			break;
-		case "Owca":
-			sheepCount = 1;
-			break;
-		case "Swinia":
-			pigCount = 1;
-			break;
-		}
 
 		for (;;) {
 			System.out.println("MENU:");
